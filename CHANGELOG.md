@@ -1,3 +1,98 @@
+##### v3.1.1
+###### 2021-04-16
+
+* Fix SSO flow broken by v3.0.0 update
+* Fix for regtest network errors on homepage
+
+
+##### v3.1.0
+###### 2021-04-14
+
+* Improvements to no-`txindex` support: now available for all versions of Bitcoin Core
+* Move public sites to [BitcoinExplorer.org](https://bitcoinexplorer.org) (BIG thanks [@SatoshisDomains](https://twitter.com/SatoshisDomains))
+* Add back the `/peers` tool in the "Tools" menu
+	* Note: The map on the peers tool now requires users set their own `BTCEXP_MAPBOX_APIKEY` in `.env`
+* Response compression
+* Remove reference to unused `fonts.css`
+* Increased static-files cache: 1hr -> 1mo
+* Clearer UX around RPC connection failures (show the fact clearly, instead of flooding the log with cryptic errors)
+* Fixed changelog for v3.0.0 release (added/clarified some issues)
+* Updated favicons (Thanks [realfavicongenerator.net](https://realfavicongenerator.net))
+* Fix for homepage error after failure to get AU exchange rate
+* UX improvements on `/peers` page
+* Graphs for top items in `/admin/stats`
+* Optional support for plausible.io analytics
+* Fix to avoid displaying empty "Summary" section when we fail to get address txid list
+* UX improvement around electrs too-many-txs-for-address errors
+
+
+##### v3.0.0
+###### 2021-04-08
+
+* Major visual refresh!
+	* All new design (layout, fonts, colors, etc)
+	* Redesigned Dark Mode (now the default)
+	* New app icon
+* Support for pruned nodes and nodes with disabled `txindex`! (HUGE Thanks to [@shesek](https://github.com/shesek))
+	* Note: Currently only Bitcoin Core versions 0.21+ are able to support this feature (a future improvement is planned to make it available to all versions)
+* Mempool Summary improvements
+	* Greatly improved performance for multiple loads via caching
+	* Added: "Blocks Count" column by fee-rate bucket
+	* Tool for estimating Block Depth of a transaction or a fee rate (Thanks [@pointbiz](https://github.com/pointbiz))
+* Mining Summary: added doughnut chart for rev. breakdown, simplified table data
+* Upgraded to Bootstrap 5 (currently beta3...)
+* Update mapbox API (Thanks [@shesek](https://github.com/tyzbit))
+	* Note: The map on the `/peers` page now requires that users set the env var `BTCEXP_MAPBOX_APIKEY` to their own API key
+* Fix for 404 pages hanging (Thanks [@shesek](https://github.com/shesek))
+* Add convenience redirect for baseUrl (Thanks [@shesek](https://github.com/shesek))
+* Make url in logs clickable (Thanks [@shesek](https://github.com/shesek))
+* Caching for static files (maxAge=1hr)
+* Frontend performance optimizations
+* Smarter performance/memory defaults for slow devices
+* Major refactoring, modernization, and code-reuse improvements
+* UX improvements and polish throughout
+* URL changes
+	* `/node-status` -> `/node-details`
+	* `/unconfirmed-tx` -> `/mempool-transactions`
+* Environment variable changes
+	* The below changes were made to more clearly acknowledge that multiple Electrum-protocol implementations (e.g. ElectrumX, Electrs) can be used for address queries:
+	* `BTCEXP_ADDRESS_API` value `electrumx` -> `electrum` (`electrumx` should still works)
+	* `BTCEXP_ELECTRUMX_SERVERS` -> `BTCEXP_ELECTRUM_SERVERS` (`BTCEXP_ELECTRUMX_SERVERS` should still work)
+* Updated dependencies
+	* jQuery: v3.4.1 -> v3.6.0
+	* highlight.js: v9.14.2 -> v10.7.1
+	* fontawesome: v5.7.1 -> v5.15.3
+
+##### v2.2.0
+###### 2021-01-22
+
+* New "Fun" item for the tx containing the whitepaper and new tool to extract the whitepaper and display it
+* New fee rate data on `/block-analysis` pages
+* New minor misc peer data available in Bitcoin Core RPC v0.21+
+* New gold exchange rate on homepage
+* Fix for SSO token generation URL encoding (Thanks [@shesek](https://github.com/shesek) and [@Kixunil](https://github.com/Kixunil))
+* Fix for `/peers` map
+* Fix for README `git clone` instructions (Thanks [@jonasschnelli](https://github.com/jonasschnelli))
+
+#### v2.1.0
+##### 2020-12-15
+
+* Support for running on a configurable BASEURL, e.g. "/explorer/" (Thanks [@ketominer](https://github.com/ketominer), [@Kixunil](https://github.com/Kixunil), [@shesek](https://github.com/shesek))
+* Support for SSO (Thanks [@Kixunil](https://github.com/Kixunil))
+* Support for signet and taproot (Thanks [@guggero](https://github.com/guggero))
+* Support for listening on 0.0.0.0 (Thanks [@lukechilds](https://github.com/lukechilds))
+* Support for viewing list of block heights for each miner on `/mining-summary`
+* Sanitizing of environment variables (Thanks [@lukechilds](https://github.com/lukechilds))
+* Fix for XSS vulnerabilities (Thanks [@shesek](https://github.com/shesek))
+* Fix for low severity lodash dependency vulnerability (Thanks [@abhiShandy](https://github.com/abhiShandy))
+* Fix for zero block reward (eventually on mainnet, now on regtest) (Thanks [@MyNameIsOka](https://github.com/MyNameIsOka))
+* Fix for cryptic error when running regtest with no blocks
+* Fix for pagination errors on `/blocks` (not displaying genesis block on the last page; error on last page when sort=asc)
+* Electrum connect/disconnect stats on `/admin`
+* Add P2SH bounty address `/fun` items (Thanks [@cd2357](https://github.com/cd2357))
+* Misc cleanup (Thanks [@AaronDewes](https://github.com/AaronDewes))
+* Add "Thanks" notes to changelog
+
 #### v2.0.2
 ##### 2020-07-03
 
@@ -7,6 +102,7 @@
 * Bug fixes
 	* Fix for erroneous defaults for boolean env vars in some scenarios (slow device mode)
 * Updated dependences and mining pools
+* Misc cleanup (Thanks [@JosephGoulden](https://github.com/JosephGoulden))
 
 #### v2.0.1
 ##### 2020-05-28
@@ -131,7 +227,7 @@
 * Show mempool ancestor/descendant txs on tx detail pages
 * Blacklist 'createwallet' by default
 * Show RBF status for unconfirmed txs
-* Faster, more reliable display of `/mempool-summary` and `/unconfirmed-tx` pages
+* Faster, more reliable display of `/mempool-summary` and `/mempool-transactions` pages
 * Fix for persisting arg values in UI on `/rpc-browser`
 * Misc minor fixes and ux tweaks
 
